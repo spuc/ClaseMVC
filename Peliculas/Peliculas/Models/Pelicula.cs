@@ -4,6 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Peliculas.Models
 {
+    public enum Genero
+    {
+        [Display(Name = "Ciencia Ficcion")]
+        Ficcion,
+        [Display(Name = "Drama")]
+        Drama,
+        [Display(Name = "Comedia")]
+        Comedia
+    }
+
     public class Pelicula
     {
         [Key]
@@ -21,6 +31,8 @@ namespace Peliculas.Models
 
         [StringLength(500, MinimumLength = 0, ErrorMessage = "El {0} debe ser menos de {1} caracteres")]
         public string Descripcion { get; set; }
+
+        public string Categoria { get; set; }
 
 
 

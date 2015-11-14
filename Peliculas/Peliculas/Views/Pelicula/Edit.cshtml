@@ -9,39 +9,42 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Pelicula</legend>
+    <div class="form-horizontal">
+        <h4>Pelicula</h4>
 
         @Html.HiddenFor(model => model.id)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Nombre)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, 
+            htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-        <div class="editor-field">
+        <div class="col-md-10">
             @Html.EditorFor(model => model.Nombre)
             @Html.ValidationMessageFor(model => model.Nombre)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Fecha)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fecha,
+            htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-        <div class="editor-field">
+        <div class="col-md-10">
             @Html.EditorFor(model => model.Fecha)
             @Html.ValidationMessageFor(model => model.Fecha)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Descripcion)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descripcion,
+            htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
-        <div class="editor-field">
+        <div class="col-md-10">
             @Html.TextAreaFor(model => model.Descripcion,new {rows=5, cols=100})
             @Html.ValidationMessageFor(model => model.Descripcion)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn btn-primary" />
         </p>
-    </fieldset>
+    </div>
 }
 
 <div>

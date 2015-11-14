@@ -46,3 +46,6 @@ C:\Users\Admin\Documents\Luis\Peliculas\Peliculas.Tests\bin\Debug\DotNetOpenAuth
 C:\Users\Admin\Documents\Luis\Peliculas\Peliculas.Tests\bin\Debug\DotNetOpenAuth.OpenId.xml
 C:\Users\Admin\Documents\Luis\Peliculas\Peliculas.Tests\obj\Debug\Peliculas.Tests.dll
 C:\Users\Admin\Documents\Luis\Peliculas\Peliculas.Tests\obj\Debug\Peliculas.Tests.pdb
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas.Tests\obj\Debug\Peliculas.Tests.csprojResolveAssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas.Tests\obj\Debug\Peliculas.Tests.dll
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas.Tests\obj\Debug\Peliculas.Tests.pdb
