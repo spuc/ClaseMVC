@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -56,6 +58,12 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -181,6 +189,7 @@
     <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PeliculaController.cs" />
+    <Compile Include="Extensiones\Extensions.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -188,6 +197,10 @@
     <Compile Include="Migrations\201511100224221_InitialCreate.cs" />
     <Compile Include="Migrations\201511100224221_InitialCreate.Designer.cs">
       <DependentUpon>201511100224221_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511180018495_ruta.cs" />
+    <Compile Include="Migrations\201511180018495_ruta.Designer.cs">
+      <DependentUpon>201511180018495_ruta.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -200,6 +213,33 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imagenes\bd1.jpg" />
+    <Content Include="Content\imagenes\bowtie.png" />
+    <Content Include="Content\imagenes\db3.jpg" />
+    <Content Include="Content\imagenes\errorIcon15.png" />
+    <Content Include="Content\imagenes\GB1.jpg" />
+    <Content Include="Content\imagenes\GB2.jpg" />
+    <Content Include="Content\imagenes\glyphicons-halflings-white.png" />
+    <Content Include="Content\imagenes\glyphicons-halflings.png" />
+    <Content Include="Content\imagenes\HP2.jpg" />
+    <Content Include="Content\imagenes\HP4.jpg" />
+    <Content Include="Content\imagenes\HP5.jpg" />
+    <Content Include="Content\imagenes\images9Y2TDLSA.jpg" />
+    <Content Include="Content\imagenes\JP1.jpg" />
+    <Content Include="Content\imagenes\JP2.jpg" />
+    <Content Include="Content\imagenes\loader.gif" />
+    <Content Include="Content\imagenes\mowlning_coffee.jpg" />
+    <Content Include="Content\imagenes\orange-tabby-cat.jpg" />
+    <Content Include="Content\imagenes\patito.jpg" />
+    <Content Include="Content\imagenes\TT1.jpg" />
+    <Content Include="Content\imagenes\TT2.jpg" />
+    <Content Include="Content\imagenes\TT3.jpg" />
+    <Content Include="Content\imagenes\TT4.jpg" />
+    <Content Include="Content\imagenes\TT5.jpg" />
+    <Content Include="Content\imagenes\warning.png" />
+    <Content Include="Content\imagenes\who%27s awesome.png" />
+    <Content Include="Content\imagenes\winter.jpg" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\rating.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -256,6 +296,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -265,15 +307,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
+    <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.4.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -283,6 +327,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\rating.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -326,11 +373,18 @@
     <Content Include="Views\Countries\Europa.cshtml" />
     <Content Include="Views\Countries\Otros.cshtml" />
     <Content Include="Views\Countries\Detalles.cshtml" />
-    <Content Include="Views\Pelicula\Index.cshtml" />
+    <Content Include="Views\Pelicula\_Resultados.cshtml" />
     <Content Include="Views\Pelicula\Details.cshtml" />
     <Content Include="Views\Pelicula\Create.cshtml" />
     <Content Include="Views\Pelicula\Edit.cshtml" />
     <Content Include="Views\Pelicula\Delete.cshtml" />
+    <Content Include="Views\Pelicula\Todas.cshtml" />
+    <Content Include="Views\Pelicula\Index.cshtml" />
+    <Content Include="Views\Pelicula\IndexAjax.cshtml" />
+    <Content Include="Views\Pelicula\_ResultadosAjax.cshtml" />
+    <Content Include="Views\Pelicula\IndexImagenes.cshtml" />
+    <Content Include="Views\Pelicula\_ResultadosImagenes.cshtml" />
+    <Content Include="Views\Shared\_Rating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -341,6 +395,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511100224221_InitialCreate.resx">
       <DependentUpon>201511100224221_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511180018495_ruta.resx">
+      <DependentUpon>201511180018495_ruta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -371,6 +428,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

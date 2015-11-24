@@ -169,3 +169,8 @@ C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\Org.Mentalis.Se
 C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\Mono.Math.xml
 C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\obj\Debug\Peliculas.Migrations.InitialCreate.resources
 C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\obj\Debug\Peliculas.csproj.GenerateResource.Cache
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\obj\Debug\Peliculas.Migrations.ruta.resources
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\PagedList.dll
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\PagedList.Mvc.dll
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\PagedList.xml
+C:\Users\Admin\Documents\GitHub\ClaseMVC\Peliculas\Peliculas\bin\PagedList.Mvc.xml

@@ -1,4 +1,5 @@
-﻿@model Peliculas.Models.Pelicula
+﻿@using Peliculas.Extensiones
+@model Peliculas.Models.Pelicula
 
 @{
     ViewBag.Title = "Edit";
@@ -6,7 +7,10 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Edit", "Pelicula",
+    FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
 
     <div class="form-horizontal">
@@ -15,32 +19,88 @@
         @Html.HiddenFor(model => model.id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, 
-            htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Nombre)
-            @Html.ValidationMessageFor(model => model.Nombre)
+            @Html.LabelFor(model => model.Nombre,
+                    htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Nombre)
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Fecha,
             htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fecha)
+                @Html.ValidationMessageFor(model => model.Fecha)
+            </div>
         </div>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Fecha)
-            @Html.ValidationMessageFor(model => model.Fecha)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Rate,
+            htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.Rate, new { id = "calificacion" })
+                
+                <div id="divRateValue">@Model.Rate</div>
+                <br />
+                @Html.Partial("_Rating", Model)
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Categoria,
+            htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.EnumDropDownListFor(m => m.Categoria)
+                @Html.ValidationMessageFor(model => model.Categoria)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ruta,
+            htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.ruta)
+
+                <img id="previewImg" 
+                 alt="@Model.Nombre" 
+                 src="@Url.Content("~" + Model.ruta)" 
+                 width="100px" height="100px"/>
+
+                @Html.ValidationMessageFor(model => model.ruta)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ruta,
+            htmlAttributes: new { @class = "control-label col-md-2" })
+
+            <div class="col-md-10">
+
+                <span class="btn btn-default btn-file">Buscar
+                    <input type="file" id="file"
+                        name="file" />
+                </span>
+
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Descripcion,
             htmlAttributes: new { @class = "control-label col-md-2" })
-        </div>
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Descripcion,new {rows=5, cols=100})
-            @Html.ValidationMessageFor(model => model.Descripcion)
-        </div>
 
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Descripcion, new { rows = 5, cols = 100 })
+                @Html.ValidationMessageFor(model => model.Descripcion)
+            </div>
+        </div>
         <p>
             <input type="submit" value="Save" class="btn btn-primary" />
         </p>
@@ -53,4 +113,79 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            function mostrarImagen(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#previewImg').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#file").change(function () {
+                mostrarImagen(this);
+            });
+
+            var valorInicial = $("#calificacion").val();
+            
+            $("input[type=radio][value='" + valorInicial + "']").attr('checked', 'checked');
+
+            //-------------------
+            $(function () {
+
+                $('.ratting-item').rating(function (vote, event) {
+                    var anchor = $(event.currentTarget),
+                        pid = anchor.closest(".ratting-item").data("pid"),
+                        url = '@Url.Action("Calificar", "Pelicula")';
+                    $("#calificacion").val(vote);
+                    var newRate = vote;
+
+                    //mensaje de espera
+                    /* $('.ratting-item[data-pid=' + pid + ']')
+                         .next()
+                         .text("Actualizando Calificación...");
+                         */
+
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        data: { rate: vote, id: pid },
+                        success: function (data) {
+
+                            if (data.success) {
+                                /* $('.ratting-item[data-pid=' + data.pid + ']')
+                                     .next()
+                                     .text("Listo! (película: " + data.pid + ")");
+                                     */
+                                $('#divRateValue').html(newRate);
+                                toastr.success('Calificado correctamente');
+                            }
+                            else {
+                                //mostrar error
+                                $('.ratting-item[data-pid=' + data.pid + ']')
+                                    .next()
+                                    .text("ocurrió un error...");
+                                toastr.error('Calificación no aplicada');
+                            }
+                        },
+                        error: function (err) {
+                            // the call thrown an error
+                            $('.result').text(err);
+                            toastr.error('Calificación no aplicada');
+                        },
+                        complete: function () {
+                            //$(".loading").hide();
+                        }
+                    });
+                });
+
+            });
+
+
+
+        });
+    </script>
 }

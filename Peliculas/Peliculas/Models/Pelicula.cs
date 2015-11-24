@@ -32,7 +32,12 @@ namespace Peliculas.Models
         [StringLength(500, MinimumLength = 0, ErrorMessage = "El {0} debe ser menos de {1} caracteres")]
         public string Descripcion { get; set; }
 
-        public string Categoria { get; set; }
+        public Genero? Categoria { get; set; }
+
+        public string ruta { get; set; }
+
+        [Display(Name = "Calificación")]
+        public int Rate { get; set; }
 
 
 

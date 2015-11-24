@@ -1,0 +1,17 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Peliculas.Models.Pelicula>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="lista">
+    <h2>Index</h2>
+     <p>
+        @Html.ActionLink("Crear", "Create")
+    </p>
+     @Html.Partial("_ResultadosImagenes")
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")   
+}

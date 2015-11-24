@@ -1,0 +1,69 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Peliculas.Models.Pelicula>
+
+ <div class="pager1" data-otf-target="#lista">
+   @Html.PagedListPager(Model, 
+        pagina => Url.Action("IndexAjax",
+        new { pagina }),
+        options: PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "lista"
+            }))
+ </div>
+
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Categoria)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].Rate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model[0].ruta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Rate)
+        </td>
+         <td>
+            <img alt="@item.Nombre" 
+                src="@Url.Content("~" + item.ruta)" 
+                width="100px" height="100px"/>
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

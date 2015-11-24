@@ -1,4 +1,5 @@
-﻿@model Peliculas.Models.Pelicula
+﻿@using Peliculas.Extensiones
+@model Peliculas.Models.Pelicula
 
 @{
     ViewBag.Title = "Details";
@@ -6,30 +7,65 @@
 
 <h2>Details</h2>
 
-<fieldset>
+<dl class="dl-horizontal">
     <legend>Pelicula</legend>
 
-    <div class="display-label">
+    <dt>
          @Html.DisplayNameFor(model => model.Nombre)
-    </div>
-    <div class="display-field">
+    </dt>
+    <dd>
         @Html.DisplayFor(model => model.Nombre)
-    </div>
+    </dd>
 
-    <div class="display-label">
+    <dt>
          @Html.DisplayNameFor(model => model.Fecha)
-    </div>
-    <div class="display-field">
+    </dt>
+    <dd>
         @Html.DisplayFor(model => model.Fecha)
-    </div>
+    </dd>
 
-    <div class="display-label">
+       <dt>
+         @Html.DisplayNameFor(model => model.Categoria)
+    </dt>
+    <dd>
+        @foreach (int i in @Enum.GetValues(typeof(Peliculas.Models.Genero)))
+            {
+                if (Model.Categoria != null)
+                {
+                    var currentItem = (int)Model.Categoria;
+                    if ((currentItem & i) == i)
+                    {
+                        @Model.Categoria.GetDisplayName()
+                        break;
+                    }
+                }
+            }
+
+    </dd>
+
+       <dt>
+         @Html.DisplayNameFor(model => model.Rate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Rate)
+    </dd>
+
+       <dt>
+         @Html.DisplayNameFor(model => model.ruta)
+    </dt>
+    <dd>
+           <img alt="@Model.Nombre" 
+                 src="@Url.Content("~" + Model.ruta)" 
+                width="100px" height="100px"/>
+    </dd>
+
+    <dt>
          @Html.DisplayNameFor(model => model.Descripcion)
-    </div>
-    <div class="display-field">
+    </dt>
+    <dd>
         @Html.DisplayFor(model => model.Descripcion)
-    </div>
-</fieldset>
+    </dd>
+</dl>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
     @Html.ActionLink("Back to List", "Index")
