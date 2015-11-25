@@ -1,0 +1,96 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Peliculas.Models.Pelicula>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="lista">
+    <h2>Index</h2>
+     <p>
+        @Html.ActionLink("Crear", "Create")
+    </p>
+     @Html.Partial("_ResultadosImagenesPopOver")
+
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="@Url.Content("~/Scripts/rating.js")"></script>
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.popover').css('background-color', 'red');
+            $('.popover.right .arrow:after').css('border-right-color', 'red');
+
+            var pid = $("#Rate").val();
+
+            $("input[type=radio][value='" + pid + "']").attr('checked', 'checked');
+
+            var _template = '<div>template text';
+            _template += '</div><hr/>';
+            _template += '<div class="stars"><a class="star fullStar" title="1"></a><a class="star fullStar" title="2"></a><a class="star fullStar" title="3"></a><a class="star" title="4"></a><a class="star" title="5"></a></div>';
+
+
+            function crearTemplate(calificacion, desc, titulo) {
+
+                var _template2 = "<div>" + desc + "</div>";
+                _template2 += '<hr/><div class="stars">';
+
+                var calificados = 0;
+                for (var i = 0; i < calificacion; i++) {
+                    _template2 += '<a class="star fullStar" title="' + i + 1 + '"></a>';
+                    calificados = i;
+                }
+                var total = 4;
+                if (calificados == 0)
+                    total = 5;
+                for (var i = calificados; i < total; i++) {
+                    _template2 += '<a class="star" title="' + i + 1 + '"></a>';
+                }
+                _template2 += '&nbsp;&nbsp;<b>Rate:</b>' + calificacion + '</div>';
+                if (desc === undefined || desc == null)
+                    desc = " ";
+
+
+                return _template2;
+            }
+
+
+            $('*[data-toggle=popover]').hover(function () {
+                var e = $(this);
+                var img = e[0];
+                var calif = img.attributes["data-rate"].value;
+                var rate = e.data("rate");
+                var desc = img.getAttribute('data-desc');
+                var title = e.data("titulo");
+                var rate = rate || "0";
+                var desc = desc || " ";
+                var title = title || " ";
+                //e.off('hover');
+                //e.popover({ html: 'true', content: crearTemplate(rate, desc, title) }).popover('show');
+                e.popover({ html: 'true', trigger: 'hover focus', content: crearTemplate(rate, desc, title) }).popover('show');
+            });
+
+            $('*[data-toggle=popover]').click(function () {
+                var e = $(this);
+                var img = e[0];
+               
+                var id = img.getAttribute('data-id');
+               
+                window.location.href = "details/" + id ;
+            });
+
+            //----------------
+            $(".stars").click(function (element) {
+                element.addClass("fullStar").prevAll().addClass("fullStar");
+            });
+            //---------
+
+
+        });
+
+    </script>
+
+}
+
+

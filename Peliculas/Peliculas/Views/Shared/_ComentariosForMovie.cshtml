@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Peliculas.Models.Comentario>
+
+
+
+@using (Ajax.BeginForm("_ComentariosForMovie",
+                        new { id = ViewBag.MovieId },
+                        new AjaxOptions { UpdateTargetId = "comments-tool" }))
+{
+
+    <div id="comments-tool">
+        <h3>Comments</h3>
+
+        <div id="all-comments">
+            @foreach (var item in Model)
+            {
+                <div class="photo-comment">
+
+                   <div class="photo-comment-subject">
+                        @Html.DisplayNameFor(model => model.Subject):
+                        @Html.DisplayFor(modelItem => item.Subject)
+                    </div>
+
+                    <div class="photo-comment-body">
+                        @Html.DisplayFor(modelItem => item.Body)
+                    </div>
+
+                    @Html.ActionLink("Eliminar", "Delete",  new { id = item.ComentarioID }, new { @class="btn btn-info" })
+
+                </div>
+            }
+        </div>
+
+        <div id="addcomment" class="add-comment-box">
+            @if (Request.IsAuthenticated)
+            {
+                @Html.Action("_Create", "Comentario", new { MovieId = ViewBag.MovieId })
+            }
+            else
+            {
+                @Html.ActionLink("To comment you must log in", "Login", "Account", new { @class="btn btn-primary" })
+            }
+        </div>
+        <br/>
+        <hr/>
+    </div>
+}

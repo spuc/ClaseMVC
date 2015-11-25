@@ -47,7 +47,10 @@
          @Html.DisplayNameFor(model => model.Rate)
     </dt>
     <dd>
-        @Html.DisplayFor(model => model.Rate)
+        @Html.HiddenFor(model => model.Rate, new { id = "calificacion" })
+           <div id="divRateValue">@Model.Rate</div>
+                <br />
+                @Html.Partial("_Rating", Model)
     </dd>
 
        <dt>
@@ -66,7 +69,77 @@
         @Html.DisplayFor(model => model.Descripcion)
     </dd>
 </dl>
+
+@Html.Action("_ComentariosForMovie", "Comentario", 
+        new { id = Model.id })
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {      
+
+            var valorInicial = $("#calificacion").val();
+            
+            $("input[type=radio][value='" + valorInicial + "']").attr('checked', 'checked');
+
+            //-------------------
+            $(function () {
+
+                $('.ratting-item').rating(function (vote, event) {
+                    var anchor = $(event.currentTarget),
+                        pid = anchor.closest(".ratting-item").data("pid"),
+                        url = '@Url.Action("Calificar", "Pelicula")';
+                    $("#calificacion").val(vote);
+                    var newRate = vote;
+
+                    //mensaje de espera
+                    /* $('.ratting-item[data-pid=' + pid + ']')
+                         .next()
+                         .text("Actualizando Calificación...");
+                         */
+
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        data: { rate: vote, id: pid },
+                        success: function (data) {
+
+                            if (data.success) {
+                                /* $('.ratting-item[data-pid=' + data.pid + ']')
+                                     .next()
+                                     .text("Listo! (película: " + data.pid + ")");
+                                     */
+                                $('#divRateValue').html(newRate);
+                                toastr.success('Calificado correctamente');
+                            }
+                            else {
+                                //mostrar error
+                                $('.ratting-item[data-pid=' + data.pid + ']')
+                                    .next()
+                                    .text("ocurrió un error...");
+                                toastr.error('Calificación no aplicada');
+                            }
+                        },
+                        error: function (err) {
+                            // the call thrown an error
+                            $('.result').text(err);
+                            toastr.error('Calificación no aplicada');
+                        },
+                        complete: function () {
+                            //$(".loading").hide();
+                        }
+                    });
+                });
+
+            });
+
+
+
+        });
+    </script>
+}

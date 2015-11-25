@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Peliculas.Models.Pelicula>
+
+@{
+    ViewBag.Title = "SlideShow";
+}
+
+<h2>SlideShow</h2>
+
+<div id="slide-show">
+@foreach (var item in Model) {
+    <div class="slide-show-card">
+         <h3>
+                @Html.ActionLink(item.Nombre, "Details", new { id = item.id })
+            </h3>
+            <p>
+                Categoría: @Html.DisplayFor(modelItem => item.Categoria)
+            </p>
+            <p>@item.Descripcion</p>
+            @if (item.ruta != null) {
+                <img height="430" src="@item.ruta" id="@item.id"/>
+            }
+     </div>
+}
+</div>
+
+

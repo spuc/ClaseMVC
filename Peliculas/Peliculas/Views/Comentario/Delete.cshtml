@@ -1,0 +1,31 @@
+﻿@model Peliculas.Models.Comentario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Esta seguro que desea eliminar este comentario?</h2>
+
+<h3>Movie Title: "@Html.DisplayFor(model => model.pelicula.Nombre)"</h3>        
+
+<div class="photo-comment">
+
+    
+
+    <div class="photo-comment-subject">
+        @Html.DisplayNameFor(model => model.Subject):
+        @Html.DisplayFor(model => model.Subject)
+    </div>
+
+    <div class="photo-comment-body">
+        @Html.DisplayFor(model => model.Body)
+    </div>
+
+</div>
+
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Eliminar" class="btn btn-primary" /> |
+        @Html.ActionLink("Regresar", "details", "pelicula", new { id = ViewBag.id }, null)
+    </p>
+}

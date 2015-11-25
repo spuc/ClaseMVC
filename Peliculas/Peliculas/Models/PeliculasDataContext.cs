@@ -9,6 +9,7 @@ namespace Peliculas.Models
         {
         }
         public DbSet<Pelicula> Peliculas { get; set; }
+        public DbSet<Comentario> Comentarios { get; set; }
 
     }
 }

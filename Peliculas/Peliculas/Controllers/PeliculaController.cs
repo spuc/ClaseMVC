@@ -35,6 +35,12 @@ namespace Peliculas.Controllers
             return View(lista);
         }
 
+        public ActionResult IndexImagenesPopOver(int pagina = 1)
+        {
+            var lista = db.Peliculas.ToList().ToPagedList(pagina, 18);
+            return View(lista);
+        }
+
         public ActionResult Todas()
         {
             return View(db.Peliculas.ToList());

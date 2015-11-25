@@ -1,0 +1,42 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Peliculas.Models.Pelicula>
+
+ <div class="pager1" data-otf-target="#lista">
+   @Html.PagedListPager(Model, 
+        pagina => Url.Action("IndexImagenesPopOver",
+        new { pagina }),
+        options: PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+            new AjaxOptions()
+            {
+                HttpMethod = "GET",
+                UpdateTargetId = "lista"
+            }))
+ </div>
+
+<ul id="album-list">
+     @foreach (var pel in Model)
+     {
+           <li>
+                 <div  rel="popover">
+                      <img alt="@pel.Nombre" 
+                         src="@Url.Content("~" + pel.ruta)" 
+                        width="100px" height="100px"
+                          data-id="@pel.id"
+                          data-titulo="@pel.Nombre"
+                          title="@pel.Nombre"
+                          data-toggle="popover"
+                          data-trigger="hover focus"
+                          data-desc="@pel.Descripcion"
+                          data-rate="@pel.Rate"
+                          class="imgpopover"
+                          />
+                    <span>@pel.Nombre</span>
+               
+                </div>
+            </li>
+
+     }
+
+</ul>
+
+

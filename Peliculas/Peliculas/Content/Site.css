@@ -107,3 +107,109 @@ filter: progid:none !important;
 }
 
 .brown{color:#9b846b}
+
+#slide-show {
+    position:relative;
+    height: 650px;
+}
+
+#slide-show DIV.slide-show-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 8;
+    height: 600px;
+    background-color: #eeeeee;
+    border-color: #538345;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    color: #333333;
+    padding: 15px;
+    margin: 5px;
+    height: 650px;
+    width: 800px;
+}
+
+#slide-show DIV.active-card {
+    z-index: 10;
+}
+
+#slide-show DIV.last-active-card {
+    z-index: 9;
+}
+
+#slideshow-progress-bar-container {
+    margin: 5px;
+    width: 834px;
+}
+
+
+.photo-index-card {
+    background-color: #eeeeee;
+    border-color: #538345;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    color: #333333;
+    padding: 15px;
+    margin: 5px;
+    height: 500px;
+    width: 280px;
+    float: left;
+}
+
+.photo-index-card-img {
+	width: 250px;
+	max-height: 320px;
+}
+
+.photo-metadata {
+    width: 800px;
+    border: 1px, solid, black;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.photo-description {
+    min-height: 100px;
+    width: 770px;
+    background-color: #eeeeee;
+    border-color: #538345;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    color: #333333;
+    padding: 15px;
+}
+
+.photo-comment {
+    min-height: 100px;
+    width: 770px;
+    color: darkslategray;
+    /*background-color: cadetblue;*/
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 15px;    
+    margin: 5px;
+}
+
+.add-comment-box {
+    width: 770px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 15px;    
+    margin: 5px;   
+}
+
+.photo-comment-body {
+    margin: 15px;
+}
+
+.field-validation-error {
+    color: #b72323;
+}
